@@ -5,6 +5,9 @@
 
 var canvas = {
 
+    /**
+     * Valor del contexto, y una vez inicializado el objeto, referencia al contexto del elemento canvas.
+     */
     ctxt: '2d',
 
     attributes: {height: 500, width: 500},
