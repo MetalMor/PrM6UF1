@@ -1,3 +1,10 @@
 canvas#canvas {
-    margin: auto
+    margin: auto;
+    cursor: default;
+    border: 1px solid black;
 }
+
+/*
+canvas#canvas:active {
+    cursor: pointer;
+}*/

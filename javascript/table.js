@@ -17,6 +17,6 @@ var table = {
         return table;
     },
     createRow: function(m) {
-        return '<tr><td id="'+m+'"><button onClick="mouse.setMode(this.id)">'+m+'</button></td></tr>';
+        return '<tr><td id="'+m+'"><button onClick="mouse.setMode(\''+m+'\')">'+m+'</button></td></tr>';
     },
 };

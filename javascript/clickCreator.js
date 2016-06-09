@@ -6,6 +6,7 @@
 var clickCreator = {
     /**
      * Retorna un objeto clic.
+     * @param id Identificador del clic.
      * @param mouseX Coordenada X del plano.
      * @param mouseY Coordenada Y del plano.
      * @param modes Objeto contenedor de modos del clic.
@@ -14,9 +15,10 @@ var clickCreator = {
      * @param lineWidth Grosor de la línea
      * @returns {click}
      */
-    click: function(mouseX, mouseY, modes, strokeStyle, lineJoin, lineWidth) {
+    click: function(id, mouseX, mouseY, modes, strokeStyle, lineJoin, lineWidth) {
         var click;
         return click = {
+            id: id,
             x: mouseX,
             y: mouseY,
             modes: modes,

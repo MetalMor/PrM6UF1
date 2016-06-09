@@ -20,5 +20,14 @@ var elements = {
     },
     getTable: function() {
         return elements.getElement(elements.selectors.table);
+    },
+    setEvent: function(event, element, callback) {
+        if(event && element && callback) {
+            element.off(event);
+            element.on(event, function (e) {
+                callback(e)
+            });
+        }
+        return element;
     }
 };
