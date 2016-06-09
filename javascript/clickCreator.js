@@ -4,14 +4,18 @@
  */
 
 var clickCreator = {
-    click: function(mouseX, mouseY, mode, strokeStyle, lineJoin, lineWidth) {
-        return {
+    click: function(mouseX, mouseY, modes, strokeStyle, lineJoin, lineWidth) {
+        var click;
+        return click = {
             x: mouseX,
             y: mouseY,
-            modes: mode,
+            modes: modes,
             strokeStyle: strokeStyle,
             lineJoin: lineJoin,
-            lineWidth: lineWidth
+            lineWidth: lineWidth,
+            getMode: function() {
+                return util.getMode(click);
+            }
         }
     }
 };

@@ -5,13 +5,20 @@
 
 var elements = {
     selectors: {
-        canvas: 'div#canvas_container>canvas#canvas',
-        table: 'div#menu_container>table#menu>tbody>tr'
+        canvas: 'canvas#canvas',
+        table: 'table#menu>tbody'
     },
-    getCanvas: function() {
-        return $(elements.selectors.canvas);
+    getElement: function(selector, notJquery) {
+        var element = $(selector);
+        return notJquery === true ? element[0] : element;
+    },
+    getCanvas: function(notJquery) {
+        var params = [];
+        params.push(elements.selectors.canvas);
+        if(notJquery === true) params.push(notJquery);
+        return elements.getElement.apply(elements, params);
     },
     getTable: function() {
-        return $(elements.selectors.table);
+        return elements.getElement(elements.selectors.table);
     }
 };

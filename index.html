@@ -5,29 +5,25 @@
     <meta name="author" content="mor">
     <title>PAINt</title>
     <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="javascript/util.js"></script>
+    <script type="text/javascript" src="javascript/logger.js"></script>
+    <script type="text/javascript" src="javascript/elements.js"></script>
+    <script type="text/javascript" src="javascript/table.js"></script>
     <script type="text/javascript" src="javascript/canvas.js"></script>
     <script type="text/javascript" src="javascript/clickCreator.js"></script>
     <script type="text/javascript" src="javascript/mouse.js"></script>
     <script type="text/javascript" src="javascript/main.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
     <h1>PAINt</h1>
-    <div id="menu_container">
-        <table id="menu">
-            <thead><th>Botons</th></thead>
-            <tbody>
-                <tr>
-                    <td id="pencil"><button onClick="mouse.setMode(this.id)"></button></td>
-                    <td id="line"><button onClick="mouse.setMode(this.id)"></button></td>
-                    <td id="circle"><button onClick="mouse.setMode(this.id)"></button></td>
-                    <td id="square"><button onClick="mouse.setMode(this.id)"></button></td>
-                    <td id="erase"><button onClick="mouse.setMode(this.id)"></button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="canvas_container">
-        <canvas id="canvas"></canvas>
-    </div>
+    <canvas id="canvas" draggable="true">Something screwed it up</canvas>
+    <table id="menu">
+        <thead><th>Botons</th></thead>
+        <tbody>
+            <tr>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

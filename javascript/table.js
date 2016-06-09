@@ -6,16 +6,17 @@
 var table = {
     element: {},
     init: function() {
-        var element = (table.element = elements.getTable()),
+        var element = elements.getTable(),
             modes = Object.keys(mouse.modes),
             toAppend = "";
         element.empty();
         modes.forEach(function(m) {
-            toAppend += element.createRow(m);
+            toAppend += table.createRow(m);
         });
         element.append(toAppend);
+        return table;
     },
     createRow: function(m) {
-        return '<td id="'+m+'"><button onClick="mouse.setMode(this.id)"></button></td>';
+        return '<tr><td id="'+m+'"><button onClick="mouse.setMode(this.id)">'+m+'</button></td></tr>';
     },
 };

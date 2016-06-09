@@ -14,25 +14,25 @@ var mouse = {
 
     clicks: [],
 
-
-
-    init: function(element) {
-        var needle = 'setO',
-            condition = function(p) {return p.indexOf(needle) > 0};
-
-        Object.keys(mouse).map(condition).forEach(function(s) {
+    init: function() {
+        var needle = 'setO', element = elements.getCanvas().css('float', 'right'),
+            condition = function(p) {return p.indexOf(needle) >= 0},
+            keys = Object.keys(mouse), funcList = [];
+        keys.forEach(function(k) {
+            if(condition(k)) funcList.push(k);
+        });
+        funcList.forEach(function(s) {
             mouse[s](element);
         });
-
         return mouse;
     },
-
     setOnMouseMove: function(element) {
         element.mousemove(function(e) {
             var mouseX = mouse.getMouseX(e, this),
                 mouseY = mouse.getMouseY(e, this);
             if (mouse.paint) {
-                mouse.addClick(mouseX, mouseY);
+                if(mouse.modes.pencil) mouse.addClick(mouseX, mouseY);
+                else mouse.changeClick(mouseX, mouseY);
                 canvas.redraw();
             }
         });
@@ -67,11 +67,7 @@ var mouse = {
         return mouse;
     },
     getMode: function() {
-        var modes = mouse.modes, mode;
-        for (mode in modes) {
-            if(modes[mode]) return mode;
-        }
-        return false;
+        util.getMode(mouse);
     },
     getMouseX: function(e, self) {
         return mouse.mouseX = e.pageX - self.offsetLeft;
@@ -80,11 +76,14 @@ var mouse = {
         return mouse.mouseY = e.pageY - self.offsetTop;
     },
     addClick: function(mouseX, mouseY) {
-        var mode = mouse.getMode(),
-            c = clickCreator.click(mouseX, mouseY, mode,
+        var modes = mouse.modes,
+            c = clickCreator.click(mouseX, mouseY, modes,
             canvas.strokeStyle, canvas.lineJoin, canvas.lineWidth);
         mouse.clicks.push(c);
         return mouse;
+    },
+    changeClick: function(mouseX, mouseY, prev) {
+        return mouse.removeClick(prev).addClick(mouseX, mouseY);
     },
     removeClick: function(c) {
         var clicks = mouse.clicks;
@@ -95,11 +94,6 @@ var mouse = {
             clicks.splice(index, 1);
         }
         mouse.clicks = clicks;
-        return mouse;
-    },
-    paintToCanvas: function(mouseX, mouseY) {
-        mouse.addClick(mouseX, mouseY);
-        canvas.redraw();
         return mouse;
     },
     painting: function() {
