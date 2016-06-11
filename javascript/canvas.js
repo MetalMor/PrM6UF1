@@ -13,9 +13,12 @@ var canvas = {
     attributes: {height: 500, width: 1000},
 
     bgColor: '#FFFFFF',
-    strokeStyle: '#000000',
     lineJoin: 'round',
-    lineWidth: 5,
+    editable: {
+        strokeStyle: '#000000',
+        fillStyle: '#000000',
+        lineWidth: 5
+    },
 
     init: function() {
         var element = elements.getCanvas(true),
@@ -31,37 +34,38 @@ var canvas = {
         return util.nearZero(x) && util.nearZero(y);
     },
     redraw: function() {
-        var i, ctxt = canvas.ctxt, strokeStyle = canvas.strokeStyle, lineJoin = canvas.lineJoin,
-            modes = mouse.modes, mode, lineWidth = canvas.lineWidth, clicks = mouse.clicks,
-            prev = clickCreator.click(0, 0, modes, strokeStyle, lineJoin, lineWidth);
 
-
-        ctxt.strokeStyle = strokeStyle;
-        ctxt.lineJoin = lineJoin;
-        ctxt.lineWidth = lineWidth;
-
-        canvas.ctxt = ctxt;
+        var editable = canvas.editable, modes = mouse.modes, mode,
+            clicks = mouse.clicks, prev = clickCreator.click(-1, 0, 0, modes, editable);
 
         canvas.erase();
         var debugCounter = 0, debugLim = clicks.length-1;
         clicks.forEach(function(cur) {
+            modes = cur.modes;
             if(debugCounter === debugLim) {
                 console.log('HARD DEBUGGING ' + clicks.indexOf(mouse.getFirstClick(cur.id)));
             }
+            debugCounter++;
             if(!modes.pencil) {
                 var firstIndex = clicks.indexOf(mouse.getFirstClick(cur.id)),
                     lastIndex = clicks.indexOf(mouse.getLastClick(cur.id));
-                clicks.splice(firstIndex, lastIndex-firstIndex-1);
-            }
+                clicks.splice(firstIndex, lastIndex-firstIndex-2);
+            } else
+                console.log('pencil approaching!');
             var other;
             mode = cur.getMode();
             other = cur.id === prev.id ? prev : cur;
             prev = canvas.drawFigure(mode, cur, other);
-            debugCounter++;
         });
         return canvas;
     },
     drawPath: function(ctxt, pos, func) {
+        var propName, prop, editable = canvas.editable;
+        for (propName in editable) {
+            prop = pos[propName];
+            if(prop)
+                ctxt[propName] = prop;
+        }
         ctxt.beginPath();
         ctxt.moveTo(pos.x, pos.y);
         if(func) func();
@@ -91,6 +95,9 @@ var canvas = {
         var prev = mouse.getFirstClick(current.id);
         var ctxt = canvas.ctxt, mode = current.getMode();
         canvas.drawPath(ctxt, prev, function() {
+            if(current.fill) {
+                ctxt.fillRect(prev.x, prev.y, current.x, current.y);
+            }
             ctxt.rect(prev.x, prev.y, current.x, current.y);
         });
     },
@@ -102,8 +109,9 @@ var canvas = {
             ctxt.arc(prev.x, prev.y, radius, 0, perimeter, false);
         });
     },
-    erase: function() {
+    erase: function(forced) {
         canvas.ctxt.clearRect(0, 0, canvas.attributes.width, canvas.attributes.height);
+        if (forced) mouse.clicks = [];
     },
     setAttributes: function(element) {
         var attributes = canvas.attributes, attr;

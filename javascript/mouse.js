@@ -73,6 +73,7 @@ var mouse = {
                 mouseY = mouse.getMouseY(e, cv);
                 prev = clicks.last();
                 cur = mouse.newClick(mouseX, mouseY, modes);
+                cur.fill = options.solid();
                 mouse.addClick(cur);
                 canvas.redraw();
             }
@@ -87,6 +88,7 @@ var mouse = {
             mouseX = mouse.getMouseX(e, cv);
             mouseY = mouse.getMouseY(e, cv);
             cur = mouse.newClick(mouseX, mouseY, modes);
+            cur.fill = options.solid();
             mouse.painting();//.addClick(cur);
             canvas.redraw();
         });
@@ -118,8 +120,8 @@ var mouse = {
         return mouse.mouseY = e.pageY - self.offsetTop;
     },
     newClick: function(mouseX, mouseY, modes) {
-        return clickCreator.click(mouse.id, mouseX, mouseY, modes,
-            canvas.strokeStyle, canvas.lineJoin, canvas.lineWidth);
+        var editable = util.clone(canvas.editable);
+        return clickCreator.click(mouse.id, mouseX, mouseY, modes, editable);
     },
     addClick: function(cur) {
         mouse.clicks.push(cur);
@@ -141,10 +143,10 @@ var mouse = {
     },
     painting: function() {
         mouse.paint = true;
-        return mouse;
+        return mouse.newId();
     },
     notPainting: function() {
         mouse.paint = false;
-        return mouse.newId();
+        return mouse;
     }
 };

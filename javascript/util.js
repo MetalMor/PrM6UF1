@@ -19,7 +19,7 @@ var util = {
         for (prop in obj) obj[prop] = val;
     },
     nearZero: function (n) {
-        return Math.abs(n) <= 10;
+        return Math.abs(n) <= 5;
     },
     getDistance: function (one, other) {
         var x1 = one.x, x2 = other.x,

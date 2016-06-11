@@ -8,7 +8,8 @@ $(document).ready(function() {
     var controllers = {
         table: table.init(),
         canvas: canvas.init(),
-        mouse: mouse.init()
+        mouse: mouse.init(),
+        options: options.init()
     };
 });
 

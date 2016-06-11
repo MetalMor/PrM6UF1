@@ -13,18 +13,19 @@ var clickCreator = {
      * @param strokeStyle Estilo de línea
      * @param lineJoin Tipo de unión de la línea
      * @param lineWidth Grosor de la línea
+     * @param fillStyle Color de relleno de la figura
      * @returns {click}
      */
-    click: function(id, mouseX, mouseY, modes, strokeStyle, lineJoin, lineWidth) {
+    click: function(id, mouseX, mouseY, modes, props) {
         var click;
         return click = {
             id: id,
             x: mouseX,
             y: mouseY,
             modes: modes,
-            strokeStyle: strokeStyle,
-            lineJoin: lineJoin,
-            lineWidth: lineWidth,
+            strokeStyle: props.strokeStyle,
+            fillStyle: props.fillStyle,
+            lineWidth: props.lineWidth,
             getMode: function() {
                 return util.getMode(click);
             }
