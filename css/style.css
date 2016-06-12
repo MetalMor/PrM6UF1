@@ -4,6 +4,10 @@ canvas#canvas {
     border: 1px solid black;
 }
 
+div#video_container {
+    text-align:center;
+}
+
 /*
 canvas#canvas:active {
     cursor: pointer;

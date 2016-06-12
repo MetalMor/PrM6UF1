@@ -13,12 +13,25 @@
     <script type="text/javascript" src="javascript/options.js"></script>
     <script type="text/javascript" src="javascript/clickCreator.js"></script>
     <script type="text/javascript" src="javascript/mouse.js"></script>
+    <script type="text/javascript" src="javascript/video.js"></script>
     <script type="text/javascript" src="javascript/main.js"></script>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+    <div id="video_container">
+        <h1>How to touch a wall with an apple:</h1><br>
+        <button onclick="video.playPause()">Play/Pause</button>
+        <button onclick="video.makeBig()">Gran</button>
+        <button onclick="video.makeNormal()">Normal</button>
+        <button onclick="video.makeSmall()">Petit</button>
+        <br><br>
+        <video id="video" width="420">
+            <source src="resources/video/video.mp4" type="video/mp4">
+            No suporta vídeo HTML5.
+        </video>
+    </div>
     <h1>PAINt</h1>
-    <canvas id="canvas">Something screwed it up</canvas>
+    <canvas id="canvas">Something screwed it up.</canvas>
     <table id="menu">
         <thead><th>Botons</th></thead>
         <tbody>

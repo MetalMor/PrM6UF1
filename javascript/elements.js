@@ -7,7 +7,8 @@ var elements = {
     selectors: {
         canvas: 'canvas#canvas',
         table: 'table#menu>tbody',
-        options: 'form#options'
+        options: 'form#options',
+        video: 'video#video'
     },
     getElement: function(selector, notJquery) {
         var element = $(selector);
@@ -15,6 +16,9 @@ var elements = {
     },
     getId: function(element) {
         return element.attr('id');
+    },
+    getVideo: function(notJquery) {
+        return elements.getElement(elements.selectors.video, notJquery);
     },
     getCanvas: function(notJquery) {
         var params = [];
