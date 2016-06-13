@@ -7,6 +7,11 @@ var util = {
     obj: 'Object',
     arr: 'Array',
     func: 'Function',
+    /**
+     * Retorna el modo en el que está pintando.
+     * @param obj Objeto click/ratón.
+     * @returns {string|boolean}
+     */
     getMode: function (obj) {
         var modes = obj.modes, mode;
         for (mode in modes) {
@@ -14,13 +19,29 @@ var util = {
         }
         return false;
     },
+    /**
+     * Define todas las propiedades de un objeto con un valor.
+     * @param obj Objeto a manipular.
+     * @param val Nuevo valor.
+     */
     setAllObjProps: function (obj, val) {
         var prop;
         for (prop in obj) obj[prop] = val;
     },
+    /**
+     * Valida si un número está por debajo de las 5 unidades alejado del 0.
+     * @param n Número a validar.
+     * @returns {boolean}
+     */
     nearZero: function (n) {
         return Math.abs(n) <= 5;
     },
+    /**
+     * Retorna el módulo del vector comprendido entre 2 puntos x,y.
+     * @param one
+     * @param other
+     * @returns {number}
+     */
     getDistance: function (one, other) {
         var x1 = one.x, x2 = other.x,
             y1 = one.y, y2 = other.y;
@@ -35,6 +56,11 @@ var util = {
     type: function (crit, obj) {
         return Object.prototype.toString.call(obj) === '[object ' + crit + ']'
     },
+    /**
+     * Retorna el clon de un objeto.
+     * @param obj Objeto a clonar.
+     * @returns {object}
+     */
     clone: function (obj) {
         var copy;
         // Handle the 3 simple types, and null or undefined
